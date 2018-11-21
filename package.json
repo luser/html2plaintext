@@ -4,8 +4,10 @@
   "description": "Convert HTML-formatted text to plaintext",
   "main": "index.js",
   "scripts": {
-    "test": "node node_modules/mocha/bin/mocha"
+     "test": "node node_modules/mocha/bin/mocha",
+     "html2plaintext": "node ./cli.js"
   },
+  "bin": "./cli.js",
   "repository": "git@github.com:kurttheviking/html2plaintext.git",
   "keywords": [
     "html",

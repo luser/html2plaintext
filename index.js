@@ -45,12 +45,22 @@ function stripStylesAndScripts(str) {
   $('script').remove();
   $('style').remove();
 
+  var regex = new RegExp('^https://www.google.com/url\\?q=');
+  var links = $('a[href]').map(function(i, el) {
+    i += 1;
+    $(this).append('[' + i.toString() + ']');
+    var href = $(this).attr('href').replace(regex, '');
+    return '<br>' + i.toString() + '. ' + href;
+  }).get().join('\n');
+
+  $('body').append(links);
+
   return $.html();
 }
 
 function stringify(x) {
   if (x === null || x === undefined) {
-    return ''
+    return '';
   };
 
   return String(x);
@@ -62,9 +72,10 @@ function collapseWhitespace (val) {
 }
 
 function linebreaks (str) {
-  var output = str.replace(/<\s?(p|br)[^<]*>/gi, function (x, tag) {
+  var output = str.replace(/<\/?\s?(p|br|hr)[^<]*>/gi, function (x, tag) {
     switch (tag.toLowerCase()) {
       case 'p':
+      case 'hr':
         return '\n\n';
       case 'br':
         return '\n';
